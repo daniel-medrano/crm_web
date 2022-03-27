@@ -71,27 +71,31 @@ form .user-details .input-box{
 }
 
  form input[type="radio"]{
-     display: none;
+    display: none;
  }
  form .button{
-     height: 45px;
-     margin: 45px 0;
+    height: 45px;
+    margin: 45px 0;
  }
 
  form .button input{
-     height: 100%;
-     width: 100%;
-     outline: none;
-     color: #fff;
-     border: none;
-     font-size: 18px;
-     font-weight: 500;
-     border-radius: 5px;
-     letter-spacing: 1px;
-     background: linear-gradient(135deg, #71b7e6, #9b59b6)
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    background-size: 200%;
+    background-position: left;
+    transition: background-position 1s;
  }
  form .button input:hover{
-    background: linear-gradient(-135deg, #71b7e6, #9b59b6)
+    /* background: linear-gradient(-135deg, #71b7e6, #9b59b6); */
+    background-position: right;
 }
 
 
