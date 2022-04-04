@@ -1,28 +1,33 @@
-body {
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 23px;
-    font-weight: 600;
-    background-image: linear-gradient(to left, #5DADE2,#A569BD);
-}
-.userTable {
-    background-color:#cdffff;
+table {
+    font-size: 0.8em;
+    background-color: white;
     border-collapse: collapse;
+    border: none;
     margin: auto;
     max-width: 800px;
     width: 100%;
 }
-th {
+thead tr {
     color: white;
-    background-color: #17202A;
+    background-color: #68058f;
     padding: 15px;
+    border: none;
 }
-td {
-    padding: 20px;
+th, td {
+    padding: 15px 20px;
+    border: none;
 }
-tr:hover {
-    background-color:#5DADE2;
+
+tr {
+    border-bottom: 1px solid gray;
+}
+
+.clickable-img {
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background-color:rgb(209, 209, 209);
     color:#A569BD;
     border-bottom:1px solid #A569BD;
-    border-top:1px solid #A569BD;
 }
