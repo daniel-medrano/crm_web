@@ -1,4 +1,29 @@
-{include file="header.tpl"}
+<?php
+/* Smarty version 4.1.0, created on 2022-04-05 01:45:29
+  from 'C:\xampp\htdocs\crm_web\view\templates\users\add.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.1.0',
+  'unifunc' => 'content_624b8319ab9e21_24497802',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '7e2da74cadd622b4423c02b9e58cd4dc6e8ffd3c' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\users\\add.tpl',
+      1 => 1649115925,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:header.tpl' => 1,
+  ),
+),false)) {
+function content_624b8319ab9e21_24497802 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
 
     <form action="index.php?action=add_user" method="post">
         <div class="container add-user">
@@ -20,4 +45,5 @@
         </div>
     </form>
 </body>
-</html>
+</html><?php }
+}

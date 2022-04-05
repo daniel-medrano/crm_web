@@ -6,8 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
    <link rel="shortcut icon" type="image/x-icon" href="./assets/favicon.ico">
-   <link rel="stylesheet" type="text/css" href="css/style.css">
-   <link rel="stylesheet" type="text/css" href="css/table.css">
+   <link rel="stylesheet" type="text/css" href="css/index.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
@@ -17,10 +16,10 @@
             <h1>CRM</h1>
          </div>
          <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Services</li>
-            <li>Portfolio</li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Portfolio</a></li>
             {if $isLoggedIn}
                <li><a href="#">Clients</a></li>
             {/if}
@@ -35,6 +34,7 @@
                <li><a href="index.php?action=open_login">Login</a></li>
                <li><a href="index.php?action=open_signup">Sign Up</a></li>
             {else}
+               <li><a href="#">Profile</a></li>
                <li><a href="logout.php">Log Out</a></li>
             {/if}
          </ul>

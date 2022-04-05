@@ -8,7 +8,7 @@ body {
     font-family:'Poppins', sans-serif;
     color: #292562;
     background: white;
-
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,6 +48,9 @@ nav ul a:hover {
     color: #9b59b6;
 }
 
+.content {
+    width: 100%;
+}
 .content .main-section {
     display: flex;
     justify-content: center;
@@ -59,7 +62,7 @@ nav ul a:hover {
     border-bottom: 2.5px solid rgba(128, 128, 128, 0.5);
 }
 
-.main-section .text-box {
+.main-section .text-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -72,16 +75,16 @@ nav ul a:hover {
     height: 300px;
 }
 
-.text-box .title {
+.text-container .title {
     font-size: 40px;
 }
 
-.text-box .text {
+.text-container .text {
     width: 100%;
     text-align: left;
 }
 
-.text-box button.learn-more {
+.text-container button.learn-more {
     height: 50px;
     width: 200px;
     border: none;
@@ -112,7 +115,7 @@ nav ul a:hover {
     font-weight: bolder;
 }
 
-.text-box {
+.text-box, .select {
     height: 40px;
     width: 400px;
     outline: none;
@@ -124,7 +127,7 @@ nav ul a:hover {
     transition: all 0.3 ease;
 }
 
-.text-box:focus {
+.text-box:focus, .select:focus {
     border-color: #9b59b6;
 }
 
@@ -148,4 +151,36 @@ nav ul a:hover {
 .button:hover {
     background-position: right;
 }
+
+table {
+    background-color: white;
+    border-collapse: collapse;
+    border: none;
+    margin: auto;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 5px 10px lightgray;
+    text-align: left;
+}
+
+thead tr {
+    padding: 15px;
+    border: none;
+    box-shadow: 0 5px 10px lightgray;
+
+}
+th, td {
+    padding: 15px 20px;
+    border: none;
+}
+
+td.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+tbody tr:hover {
+    background-color:lightgray;
+}
+
 

@@ -8,31 +8,30 @@
     class Control {
         private $configSmarty;
         private $action;
-        private $model;
+        private $usersModel;
 
         function __construct() {
             $this->configSmarty = new Config();
             $this->action = null;
             $this->usersModel = new UsersModel();
         }
-
+        // Para debuguear.
         function console_log( $data ){
             echo '<script>';
             echo 'console.log('. json_encode( $data ) .')';
             echo '</script>';
-          }
+        }
 
-        function menu() {
-
+        function index() {
             if (isset($_REQUEST["action"])) {
                 $this->action = $_REQUEST["action"];
             }
 
-            $this->verifySession();
+            $this->checkSession();
 
             switch ($this->action) {
                 case "login":
-                    $this->verifyLogin();
+                    $this->checkLogin();
                     break;
                 case "open_login":
                     $this->showLogin();
@@ -65,48 +64,73 @@
                     $this->showUsers();
                     break;
                 default:
-                    if (isset($_SESSION["username"])) {
+                    if (isset($_SESSION["user_id"])) {
                         $this->configSmarty->setAssign("role", $_SESSION["role"]);
                         $this->configSmarty->setAssign("isLoggedIn", true);
-                        $this->configSmarty->setDisplay("welcome.tpl");
-                        exit;
+                        $this->configSmarty->setDisplay("dashboard.tpl");
+                    } else {
+                        $this->configSmarty->setAssign("role", null);
+                        $this->configSmarty->setAssign("isLoggedIn", false);
+                        $this->configSmarty->setDisplay("home.tpl");
                     }
-                    $this->configSmarty->setAssign("isLoggedIn", false);
-                    $this->configSmarty->setAssign("role", null);
-                    $this->configSmarty->setDisplay("header.tpl");
-                    $this->configSmarty->setDisplay("frm_main.tpl");
-                    $this->configSmarty->setDisplay("footer.tpl");
                     break;
             }
         }
 
-        function verifyLogin() {
+        //------------------------------------------------------------------------
+        // HOME - MÉTODOS PARA LOGUEARSE Y REGISTRARSE
+        //------------------------------------------------------------------------
 
+        // Valida el user y password del usuario para otorgar acceso o no.
+        function checkLogin() {
+            // Se recuperan el user y el password del POST.
             $username = $_POST["username"];
             $password = $_POST["password"];
-
+            // Se usa el model para validar los datos y devuelve una array con el registro de la BD.
             $results = $this->usersModel->validateLogin($username, $password);
+            // Se valida si devolvio algo, si no devolvio nada significa que el username o password son incorrectos o inexistentes.
             if (sizeof($results) != 0) {
-
+                // Se guardan los datos del registro en la sesión.
                 $_SESSION["username"] = $username;
+                $_SESSION["user_id"] = $results[0]["user_id"];
                 $_SESSION["name"] = $results[0]["name"];
                 $_SESSION["role"] = $results[0]["role"];
-                
-                $this->configSmarty->setAssign("role", $_SESSION["role"]);
-                $this->configSmarty->setAssign("isLoggedIn", true);
-                $this->configSmarty->setDisplay("welcome.tpl");
-
-
+                // Se le manda el view o la vista al usuario.
+                if (isset($_SESSION["user_id"])) {
+                    $this->configSmarty->setAssign("role", $_SESSION["role"]);
+                    $this->configSmarty->setAssign("isLoggedIn", true);
+                } else {
+                    $this->configSmarty->setAssign("role", null);
+                    $this->configSmarty->setAssign("isLoggedIn", false);
+                }
+                $this->configSmarty->setDisplay("dashboard.tpl");
             } else {
                 $this->configSmarty->setDisplay("login.tpl");
             }
         }
+        // Crea un nuevo usuario con el role por default de usuario, solo el admin puede modificar el role.
+        function registerUser() {
+            // Se obtienen los datos del POST.
+            $name = $_POST["name"];
+            $last_name = $_POST["last_name"];
+            $username = $_POST["username"];
+            $password = $_POST["password"];
+            // $role = $_POST["role"];
+            // Con ayuda del modelo se crea el usuario.
+            $registered = $this->usersModel->create($name, $last_name, $username, $password, 0);
+            // Se verifica si el usuario se creo y muestra en el view lo que corresponda.
+            if ($registered) {
+                $this->showLogin();
+            } else {
+                $this->showSignup();
+            }
+        }
 
-        function verifySession() {
+        function checkSession() {
             if (!isset($_SESSION["time"])) {
                 $_SESSION["time"] = time();
 
-            } else if (time() - $_SESSION["time"] > 200) {
+            } else if (time() - $_SESSION["time"] > 300) {
                 session_destroy();
                 header("Location: index.php");
                 exit;
@@ -114,29 +138,11 @@
             $_SESSION["time"] = time();
         }
 
-        function registerUser() {
-            // Se obtienen los datos del POST.
-            $name = $_POST["name"];
-            $last_name = $_POST["last_name"];
-            $username = $_POST["username"];
-            $password = $_POST["password"];
-            $role = $_POST["role"];
-            // Con ayuda del modelo se crea el usuario.
-            $message = $this->model->registerUser($name, $last_name, $username, $password, $role);
-            // Se verifica si el usuario se creo.
-            switch ($message) {
-                case "username already exists":
-                    $this->showSignup($message);
-                    break;
-                case "user inserted":
-                    $this->showLogin();
-                    break;
-                case "error inserting the user":
-                    $this->showSignup($message);
-                    break;
-            }
-        }
+        //------------------------------------------------------------------------
+        // USERS - MÉTODOS PARA ADMINISTRAR LOS USUARIOS
+        //------------------------------------------------------------------------
 
+        // Crea un nuevo usuario, para el administrador.
         function addUser() {
             $name = $_POST["name"];
             $last_name = $_POST["last_name"];
@@ -149,10 +155,10 @@
                 $this->showUsers();
             }
         }
-
+        // Actualiza el registro de un usuario.
         function editUser() {
             // Se obtienen los datos del POST.
-            $id = intval($_POST["id_user"]);
+            $id = intval($_POST["user_id"]);
             $name = $_POST["name"];
             $last_name = $_POST["last_name"];
             $username = $_POST["username"];
@@ -164,7 +170,7 @@
                 $this->showUsers();
             }
         }
-
+        // Elimina el registro de un usuario.
         function deleteUser() {
             $deleted = $this->usersModel->delete($_GET["id"]);
             if ($deleted) {
@@ -172,30 +178,38 @@
             }
         }
 
-        // Metodos para el view.
+        //------------------------------------------------------------------------
+        // CLIENTS - MÉTODOS PARA ADMINISTRAR LOS CLIENTES - TO-DO
+        //------------------------------------------------------------------------
 
-        function showSignup($message="") {
-            $this->configSmarty->setAssign("message", $message);
+
+
+        //------------------------------------------------------------------------
+        // MÉTODOS PARA EL VIEW 
+        //------------------------------------------------------------------------
+
+        // Muestra la pagina para registrarse y crear un usuario.
+        function showSignup() {
             $this->configSmarty->setDisplay("signup.tpl");
         }
-        
+        // Muestra la pagina para acceder a la plataforma.
         function showLogin() {
             $this->configSmarty->setDisplay("login.tpl");
         }
-
+        // Muestra la pagina con la tabla que contiene todos los usuarios.
         function showUsers() {
             $this->configSmarty->setAssign("role", $_SESSION["role"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("users", $this->usersModel->getUsers());
             $this->configSmarty->setDisplay("users/view.tpl");
         }
-
+        // Muestra la pagina para crear un usuario.
         function showAddUser() {
             $this->configSmarty->setAssign("role", $_SESSION["role"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setDisplay("users/add.tpl");
         }
-
+        // Muestra la pagina para editar un usuario.
         function showEditUser() {
             $user = $this->usersModel->getUser(intval($_GET["id"]));
             $this->configSmarty->setAssign("role", $_SESSION["role"]);
@@ -203,7 +217,7 @@
             $this->configSmarty->setAssign("user", $user);
             $this->configSmarty->setDisplay("users/edit.tpl");
         }
-
+        // Muestra la pagina de confirmación para eliminar el usuario.
         function showDelUser() {
             $user = $this->usersModel->getUser(intval($_GET["id"]));
             $this->configSmarty->setAssign("role", $_SESSION["role"]);
