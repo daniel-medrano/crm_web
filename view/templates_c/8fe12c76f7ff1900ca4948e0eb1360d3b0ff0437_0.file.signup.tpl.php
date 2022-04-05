@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-05 04:43:10
+/* Smarty version 4.1.0, created on 2022-04-05 07:34:33
   from 'C:\xampp\htdocs\crm_web\view\templates\signup.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624bacbea54a36_52227551',
+  'unifunc' => 'content_624bd4e9d3f5a9_48359599',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8fe12c76f7ff1900ca4948e0eb1360d3b0ff0437' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\signup.tpl',
-      1 => 1649126588,
+      1 => 1649130840,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_624bacbea54a36_52227551 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624bd4e9d3f5a9_48359599 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +29,7 @@ function content_624bacbea54a36_52227551 (Smarty_Internal_Template $_smarty_tpl)
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/signup.css">
-	<title>Sing Up</title>
+	<title>Sign Up</title>
 </head>
 
 <body>

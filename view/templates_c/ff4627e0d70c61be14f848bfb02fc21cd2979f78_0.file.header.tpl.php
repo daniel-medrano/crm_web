@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-05 05:32:37
+/* Smarty version 4.1.0, created on 2022-04-05 08:55:07
   from 'C:\xampp\htdocs\crm_web\view\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624bb855188605_40599657',
+  'unifunc' => 'content_624be7cb08a666_65003396',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ff4627e0d70c61be14f848bfb02fc21cd2979f78' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\header.tpl',
-      1 => 1649129555,
+      1 => 1649141698,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_624bb855188605_40599657 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624be7cb08a666_65003396 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +29,7 @@ function content_624bb855188605_40599657 (Smarty_Internal_Template $_smarty_tpl)
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
    <link rel="shortcut icon" type="image/x-icon" href="./assets/favicon.ico">
-   <link rel="stylesheet" type="text/css" href="css/index.css">
+   <link rel="stylesheet" type="text/css" href="css/style.css">
    <?php echo '<script'; ?>
  src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"><?php echo '</script'; ?>
 >
@@ -46,7 +46,7 @@ function content_624bb855188605_40599657 (Smarty_Internal_Template $_smarty_tpl)
             <li><a href="#">Services</a></li>
             <li><a href="#">Portfolio</a></li>
             <?php if ($_smarty_tpl->tpl_vars['isLoggedIn']->value) {?>
-               <li><a href="#">Clients</a></li>
+               <li><a href="index.php?action=show_contacts">Contacts</a></li>
             <?php }?>
             <?php if ($_smarty_tpl->tpl_vars['isLoggedIn']->value && $_smarty_tpl->tpl_vars['role']->value == 1) {?>
                <li><a href="index.php?action=show_users">Users</a></li>

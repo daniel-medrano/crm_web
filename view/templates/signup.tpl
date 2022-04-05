@@ -37,7 +37,7 @@
 				</div> -->
 				<div class="input-box">
 					<span class="details">Password</span>
-					<input type="text" name="password" placeholder="Enter your password" required>
+					<input type="password" name="password" placeholder="Enter your password" required>
 				</div>
 			</div>
 			<div class="button">
