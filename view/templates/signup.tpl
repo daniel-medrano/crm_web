@@ -5,14 +5,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/signup.css">
+	<link rel="stylesheet" href="css/register.css">
 	<title>Sign Up</title>
 </head>
 
 <body>
 	<div class="container">
-		<div class="title">Sign Up</div>
 		<form action="index.php" method="post">
+			<div class="title">Sign Up</div>
 			<input type="hidden" name="action" value="signup_submission">
 			<div class="user-details">
 				<div class="input-box">
@@ -40,9 +40,7 @@
 					<input type="password" name="password" placeholder="Enter your password" required>
 				</div>
 			</div>
-			<div class="button">
-				<input type="submit" value="Sign Up">
-			</div>
+			<input class="button" type="submit" value="Sign Up">
 		</form>
 	</div>
 

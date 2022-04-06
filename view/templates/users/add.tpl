@@ -9,8 +9,8 @@
             <input class="text-box" type="password" name="password" placeholder="Password" required>
             <select class="select" name="role" required>
                 <option disabled selected>Select role</option>
-                <option value="1">User</option>
-                <option value="2">Administrator</option>
+                <option value="2">User</option>
+                <option value="1">Administrator</option>
             </select>
             <div class="buttons">
                 <input class="button" type="submit" value="Add">

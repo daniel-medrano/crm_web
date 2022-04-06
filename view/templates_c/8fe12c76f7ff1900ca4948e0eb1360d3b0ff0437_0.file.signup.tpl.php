@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-06 00:05:57
+/* Smarty version 4.1.0, created on 2022-04-06 06:51:08
   from 'C:\xampp\htdocs\crm_web\view\templates\signup.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624cbd4513b9f1_40934031',
+  'unifunc' => 'content_624d1c3cb30c39_08369724',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8fe12c76f7ff1900ca4948e0eb1360d3b0ff0437' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\signup.tpl',
-      1 => 1649139122,
+      1 => 1649220667,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_624cbd4513b9f1_40934031 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624d1c3cb30c39_08369724 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -28,14 +28,14 @@ function content_624cbd4513b9f1_40934031 (Smarty_Internal_Template $_smarty_tpl)
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/signup.css">
+	<link rel="stylesheet" href="css/register.css">
 	<title>Sign Up</title>
 </head>
 
 <body>
 	<div class="container">
-		<div class="title">Sign Up</div>
 		<form action="index.php" method="post">
+			<div class="title">Sign Up</div>
 			<input type="hidden" name="action" value="signup_submission">
 			<div class="user-details">
 				<div class="input-box">
@@ -63,9 +63,7 @@ function content_624cbd4513b9f1_40934031 (Smarty_Internal_Template $_smarty_tpl)
 					<input type="password" name="password" placeholder="Enter your password" required>
 				</div>
 			</div>
-			<div class="button">
-				<input type="submit" value="Sign Up">
-			</div>
+			<input class="button" type="submit" value="Sign Up">
 		</form>
 	</div>
 
