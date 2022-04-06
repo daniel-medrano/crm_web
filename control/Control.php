@@ -88,7 +88,7 @@
                     break;
                 default:
                     if (isset($_SESSION["user_id"])) {
-                        $this->configSmarty->setAssign("role", $_SESSION["role"]);
+                        $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
                         $this->configSmarty->setAssign("isLoggedIn", true);
                         $this->configSmarty->setDisplay("dashboard.tpl");
                     } else {
@@ -117,10 +117,10 @@
                 $_SESSION["username"] = $username;
                 $_SESSION["user_id"] = $results[0]["user_id"];
                 $_SESSION["name"] = $results[0]["name"];
-                $_SESSION["role"] = $results[0]["role"];
+                $_SESSION["role_id"] = $results[0]["role_id"];
                 // Se le manda el view o la vista al usuario.
                 if (isset($_SESSION["user_id"])) {
-                    $this->configSmarty->setAssign("role", $_SESSION["role"]);
+                    $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
                     $this->configSmarty->setAssign("isLoggedIn", true);
                 } else {
                     $this->configSmarty->setAssign("role", null);
@@ -260,21 +260,21 @@
 
         // Muestra la pagina con la tabla que contiene todos los usuarios.
         function showUsers() {
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("users", $this->usersModel->getUsers());
             $this->configSmarty->setDisplay("users/view.tpl");
         }
         // Muestra la pagina para crear un usuario.
         function showAddUser() {
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setDisplay("users/add.tpl");
         }
         // Muestra la pagina para editar un usuario.
         function showEditUser() {
             $user = $this->usersModel->getUser(intval($_GET["id"]));
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("user", $user);
             $this->configSmarty->setDisplay("users/edit.tpl");
@@ -282,7 +282,7 @@
         // Muestra la pagina de confirmación para eliminar el usuario.
         function showDelUser() {
             $user = $this->usersModel->getUser(intval($_GET["id"]));
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("user", $user);
             $this->configSmarty->setDisplay("users/delete.tpl");
@@ -294,21 +294,21 @@
 
         // Muestra la pagina con la tabla que contiene todos los contatos.
         function showContacts() {
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("contacts", $this->contactsModel->getContacts($_SESSION["user_id"]));
             $this->configSmarty->setDisplay("contacts/view.tpl");
         }
         // Muestra la pagina para crear un contato.
         function showAddContact() {
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setDisplay("contacts/add.tpl");
         }
         // Muestra la pagina para editar un contato.
         function showEditContact() {
             $contact = $this->contactsModel->getContact(intval($_GET["id"]), $_SESSION["user_id"]);
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("contact", $contact);
             $this->configSmarty->setDisplay("contacts/edit.tpl");
@@ -316,7 +316,7 @@
         // Muestra la pagina de confirmación para eliminar el contato.
         function showDelContact() {
             $contact = $this->contactsModel->getContact(intval($_GET["id"]), $_SESSION["user_id"]);
-            $this->configSmarty->setAssign("role", $_SESSION["role"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("contact", $contact);
             $this->configSmarty->setDisplay("contacts/delete.tpl");

@@ -1,6 +1,6 @@
 {include file="header.tpl"}
 
-    <div class="container add-contact">
+    <div class="container add-user">
         <h2 class="title">Delete Contact</h2>
         <!-- <input class="text-box" type="hidden" name="contact_id" value="{$contact['contact_id']}" disabled> -->
         <input class="text-box" type="text" name="name" value="{$contact['name']}" placeholder="Name" disabled>

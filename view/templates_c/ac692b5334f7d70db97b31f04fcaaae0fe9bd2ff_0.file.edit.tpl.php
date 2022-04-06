@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-05 00:18:51
+/* Smarty version 4.1.0, created on 2022-04-06 01:01:24
   from 'C:\xampp\htdocs\crm_web\view\templates\users\edit.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624b6ecbe55f26_57761482',
+  'unifunc' => 'content_624cca44574277_55097908',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ac692b5334f7d70db97b31f04fcaaae0fe9bd2ff' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\users\\edit.tpl',
-      1 => 1649110698,
+      1 => 1649199630,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:header.tpl' => 1,
   ),
 ),false)) {
-function content_624b6ecbe55f26_57761482 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624cca44574277_55097908 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -36,9 +36,16 @@ $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_sm
 " placeholder="Last Name" required>
             <input class="text-box" type="text" name="username" value="<?php echo $_smarty_tpl->tpl_vars['user']->value['username'];?>
 " placeholder="Username" required>
-            <input class="text-box" type="text" name="role" value="<?php echo $_smarty_tpl->tpl_vars['user']->value['role'];?>
-" placeholder="Role" required>
-        
+            <select class="select" name="role" required>
+                <option disabled>Select role</option>
+                <?php if ($_smarty_tpl->tpl_vars['user']->value["role_id"] == 2) {?>
+                    <option value="2" selected>User</option>
+                    <option value="1">Administrator</option>
+                <?php } elseif ($_smarty_tpl->tpl_vars['user']->value["role_id"] == 1) {?>
+                    <option value="2">User</option>
+                    <option value="1" selected>Administrator</option>
+                <?php }?>
+            </select>
             <div class="buttons">
                 <input class="button" type="submit" value="Save">
                 <a class="button" href="index.php?action=show_users">Cancel</a>

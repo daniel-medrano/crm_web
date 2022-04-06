@@ -107,7 +107,6 @@ nav ul a:hover {
 .container.add-user {
     width: 450px;
 }
-
 /* Componentes */
 
 .title {
@@ -117,7 +116,7 @@ nav ul a:hover {
 
 .text-box, .select {
     height: 40px;
-    width: 400px;
+    width: 100%;
     outline: none;
     border-radius: 5px;
     border: 1px solid #ccc;

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-05 03:41:21
+/* Smarty version 4.1.0, created on 2022-04-06 01:01:22
   from 'C:\xampp\htdocs\crm_web\view\templates\users\view.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624b9e41ca0bb9_09347746',
+  'unifunc' => 'content_624cca42d477a9_75169343',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '533e6220d58353b9afe19afa2f8c3e89a2db0ce4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\users\\view.tpl',
-      1 => 1649122813,
+      1 => 1649199667,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:header.tpl' => 1,
   ),
 ),false)) {
-function content_624b9e41ca0bb9_09347746 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624cca42d477a9_75169343 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
     <div class="container users-view">

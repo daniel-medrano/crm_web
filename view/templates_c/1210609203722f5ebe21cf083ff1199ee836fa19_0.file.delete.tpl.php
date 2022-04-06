@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-05 09:33:10
+/* Smarty version 4.1.0, created on 2022-04-06 02:50:53
   from 'C:\xampp\htdocs\crm_web\view\templates\contacts\delete.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624bf0b62c5ba4_10409806',
+  'unifunc' => 'content_624ce3ed72d552_63593185',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1210609203722f5ebe21cf083ff1199ee836fa19' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\contacts\\delete.tpl',
-      1 => 1649143986,
+      1 => 1649206238,
       2 => 'file',
     ),
   ),
@@ -21,11 +21,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:header.tpl' => 1,
   ),
 ),false)) {
-function content_624bf0b62c5ba4_10409806 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624ce3ed72d552_63593185 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
-    <div class="container add-contact">
+    <div class="container add-user">
         <h2 class="title">Delete Contact</h2>
         <!-- <input class="text-box" type="hidden" name="contact_id" value="<?php echo $_smarty_tpl->tpl_vars['contact']->value['contact_id'];?>
 " disabled> -->

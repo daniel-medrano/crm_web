@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-05 07:34:33
+/* Smarty version 4.1.0, created on 2022-04-06 00:05:57
   from 'C:\xampp\htdocs\crm_web\view\templates\signup.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624bd4e9d3f5a9_48359599',
+  'unifunc' => 'content_624cbd4513b9f1_40934031',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8fe12c76f7ff1900ca4948e0eb1360d3b0ff0437' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\signup.tpl',
-      1 => 1649130840,
+      1 => 1649139122,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_624bd4e9d3f5a9_48359599 (Smarty_Internal_Template $_smarty_tpl) {
+function content_624cbd4513b9f1_40934031 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +60,7 @@ function content_624bd4e9d3f5a9_48359599 (Smarty_Internal_Template $_smarty_tpl)
 				</div> -->
 				<div class="input-box">
 					<span class="details">Password</span>
-					<input type="text" name="password" placeholder="Enter your password" required>
+					<input type="password" name="password" placeholder="Enter your password" required>
 				</div>
 			</div>
 			<div class="button">

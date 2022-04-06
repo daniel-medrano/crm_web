@@ -1,9 +1,8 @@
 {include file="header.tpl"}
 
     <form action="index.php?action=add_contact" method="post">
-        <div class="container add-contact">
+        <div class="container add-user">
             <h2 class="title">Add Contact</h2>
-            <input type="hidden" name="id_user">
             <input class="text-box" type="text" name="name" placeholder="Name" required>
             <input class="text-box" type="text" name="last_name" placeholder="Last Name" required>
             <input class="text-box" type="text" name="email" placeholder="Email" required>
