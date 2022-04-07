@@ -140,7 +140,7 @@
             $password = $_POST["password"];
             // $role = $_POST["role"];
             // Con ayuda del modelo se crea el usuario.
-            $registered = $this->usersModel->create($name, $last_name, $username, $password, 0);
+            $registered = $this->usersModel->create($name, $last_name, $username, $password, 2);
             // Se verifica si el usuario se creo y muestra en el view lo que corresponda.
             if ($registered) {
                 $this->showLogin();
