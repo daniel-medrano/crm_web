@@ -5,6 +5,7 @@
     require_once "model/UsersModel.php";
     require_once "model/ContactsModel.php";
     require_once "libs/smarty-4.1.0/Config.php";
+    require_once "model/EmployeesModel.php";
 
     class Control {
         private $configSmarty;
@@ -16,6 +17,8 @@
             $this->action = null;
             $this->usersModel = new UsersModel();
             $this->contactsModel = new ContactsModel();
+            $this->employeesModel = new EmployeesModel();
+
         }
         // Para debuguear.
         function console_log( $data ){
@@ -85,6 +88,69 @@
                     break;
                 case "show_contacts":
                     $this->showContacts();
+                    break;
+                case "add_employee":
+                    $this->addEmployee();
+                    break;
+                case "edit_employee":
+                    $this->editEmployee();
+                    break;
+                case "del_employee":
+                    $this->deleteEmployee();
+                    break;
+                case "show_add_employee":
+                    $this->showAddEmployee();
+                    break;
+                case "show_edit_employee":
+                    $this->showEditEmployee();
+                    break;
+                case "show_del_employee":
+                    $this->showDelEmployee();
+                    break;
+                case "show_employees":
+                    $this->showEmployees();
+                    break;
+                case "add_product":
+                    $this->addProduct();
+                    break;
+                case "edit_product":
+                    $this->editProduct();
+                    break;
+                case "del_product":
+                    $this->deleteProduct();
+                    break;
+                case "show_add_product":
+                    $this->showAddProduct();
+                    break;
+                case "show_edit_product":
+                    $this->showEditProduct();
+                    break;
+                case "show_del_product":
+                    $this->showDelProduct();
+                    break;
+                case "show_products":
+                    $this->showProducts();
+                    break;
+                case "add_position":
+                    $this->addPosition();
+                    break;
+                case "edit_position":
+                    $this->editPosition();
+                    break;
+                case "del_position":
+                    $this->deletePosition();
+                    break;
+                case "show_add_position":
+                    $this->showAddPosition();
+                    break;
+                case "show_edit_position":
+                    $this->showEditPosition();
+                    break;
+                case "show_del_position":
+                    $this->showDelPosition();
+                    break;
+                case "show_positions":
+                    $this->showPositions();
                     break;
                 default:
                     if (isset($_SESSION["user_id"])) {
@@ -239,6 +305,125 @@
                 $this->showContacts();
             }
         }
+        //------------------------------------------------------------------------
+        // EMPLOYEES - MÉTODOS PARA ADMINISTRAR LOS EMPLEADOS
+        //------------------------------------------------------------------------
+        
+        function addEmployee(){
+            $name = $_POST["name"];
+            $last_name = $_POST["last_name"];
+            $email = $_POST["email"];
+            $position = $_POST["position"];
+            $user_id = $_SESSION["user_id"];
+            $created = $this->employeesModel->create($name, $last_name, $email, $position, $user_id);
+
+            if ($created) {
+                $this->showEmployees();
+            }
+        }
+        // Actualiza el registro de un empleado.
+        function editEmployee(){
+                // Se obtienen los datos del POST.
+            $employee_id = intval($_POST["employee_id"]);
+            $name = $_POST["name"];
+            $last_name = $_POST["last_name"];
+            $email = $_POST["email"];
+            $position = $_POST["position"];
+            // Con ayuda del modelo se crea el empleado.
+            $updated = $this->employeesModel->update($employee_id, $name, $last_name, $email, $position);
+
+            if ($updated) {
+                $this->showEmployees();
+            }
+        }
+
+        function deleteEmployee(){
+            // Elimina el registro de un empleado.
+            $deleted = $this->employeesModel->delete($_GET["id"]);
+            if ($deleted) {
+                $this->showEmployees();
+            }
+        }
+        
+        
+        //------------------------------------------------------------------------
+        // PRODUCTS - MÉTODOS PARA ADMINISTRAR LOS PRODUCTOS
+        //------------------------------------------------------------------------
+           function addProduct(){
+                // Se obtienen los datos del POST.
+            $name = $_POST["name"];
+            $amount = $_POST["amount"];
+            $supplier = $_POST["supplier"];
+            $user_id = $_SESSION["user_id"];
+            $created = $this->contactsModel->create($name, $amount, $supplier, $user_id);
+
+            if ($created) {
+                $this->showProducts();
+            }
+               
+           }
+           
+           function editProduct(){
+
+            // Se obtienen los datos del POST.
+            $product_id = intval($_POST["product_id"]);
+            $name = $_POST["name"];
+            $amount = $_POST["amount"];
+            $supplier = $_POST["supplier"];
+            $user_id = $_SESSION["user_id"];
+            // Con ayuda del modelo se crea el producto.
+            $updated = $this->contactsModel->update($name, $amount, $supplier, $user_id);
+
+            if ($updated) {
+                $this->showProducts();
+            }
+
+           }
+
+           function deleteProduct(){
+            $deleted = $this->contactsModel->delete($_GET["id"]);
+            if ($deleted) {
+                $this->showProducts();
+            }
+               
+           }
+
+           
+        //------------------------------------------------------------------------
+        // USERS - MÉTODOS PARA ADMINISTRAR LOs puestos
+        //------------------------------------------------------------------------
+        function addPosition(){
+            $position = $_POST["position"];
+            $salary = $_POST["salary"];
+            $user_id = $_SESSION["user_id"];
+            $created = $this->employeesModel->createPosition($position, $salary, $user_id );
+
+            if ($created) {
+                $this->showPositions();
+            }
+        }
+        // Actualiza el registro de un empleado.
+        function editPosition(){
+                // Se obtienen los datos del POST.
+            $position_id = intval($_POST["position_id"]);
+            $position = $_POST["position"];
+            $salary = $_POST["salary"];
+            // Con ayuda del modelo se crea el puesto.
+            $updated = $this->employeesModel->updatePosition($position_id, $position, $salary);
+
+            if ($updated) {
+                $this->showPositions();
+            }
+        }
+
+        function deletePosition(){
+            // Elimina el registro de un empleado.
+            $deleted = $this->employeesModel->deletePosition($_GET["id"]);
+            if ($deleted) {
+                $this->showPositions();
+            }
+        }
+
 
 
         //------------------------------------------------------------------------
@@ -322,5 +507,100 @@
             $this->configSmarty->setDisplay("contacts/delete.tpl");
         }
         
+        //------------------------------------------------------------------------
+        // EMPLOYEES VIEW
+        //------------------------------------------------------------------------
+
+        // Muestra la pagina para crear un empleado.
+        function showAddEmployee() {
+            $this->configSmarty->setAssign("positions", $this->employeesModel->getPositions($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setDisplay("employees/add.tpl");
+        }
+        // Muestra la pagina para editar un empleados.
+        function showEditEmployee() {
+            $employee = $this->employeesModel->getEmployee(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("positions", $this->employeesModel->getPositions($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("employee", $employee);
+            $this->configSmarty->setDisplay("employees/edit.tpl");
+        }
+        // Muestra la pagina para eliminar un empleados.
+        function showDelEmployee() {
+            $employee = $this->employeesModel->getEmployee(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("employee", $employee);
+            $this->configSmarty->setDisplay("employees/delete.tpl");
+        }
+        // Muestra la pagina con la tabla que contiene todos los empleados.
+        function showEmployees() {
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("employees", $this->employeesModel->getEmployees($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("employees/view.tpl");
+        }
+
+        //------------------------------------------------------------------------
+        // POSITIONS VIEW
+        //------------------------------------------------------------------------
+        
+        function showAddPosition() {
+            $this->configSmarty->setAssign("positions", $this->employeesModel->getPositions($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setDisplay("positions/add.tpl");
+        }
+        // Muestra la pagina para editar un puesto.
+        function showEditPosition() {
+            $position = $this->employeesModel->getPosition(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("position", $position);
+            $this->configSmarty->setDisplay("positions/edit.tpl");
+        }
+        // Muestra la pagina para eliminar un puesto.
+        function showDelPosition() {
+            $position = $this->employeesModel->getPosition(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("position", $position);
+            $this->configSmarty->setDisplay("positions/delete.tpl");
+        }
+        // Muestra la pagina con la tabla que contiene todos las puesto.
+        function showPositions() {
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("positions", $this->employeesModel->getPositions($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("positions/view.tpl");
+        }
+       
+        //------------------------------------------------------------------------
+        // PRODUCTS VIEW
+        //------------------------------------------------------------------------
+      
+        // Muestra la pagina para crear un PRODUCTO
+        function showAddProduct() {
+
+        }
+        
+         // Muestra la pagina para editar un producto.
+         function showEditProduct() {
+            
+        }
+        
+        // Muestra la pagina para eliminar un producto.
+        function showDelProduct() {
+            
+        }
+
+         // Muestra la pagina con la tabla que contiene todos los productos.
+         function showProducts() {
+            
+        }
+
+
     }
 ?>

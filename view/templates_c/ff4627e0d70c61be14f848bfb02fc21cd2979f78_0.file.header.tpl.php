@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-06 02:57:15
+/* Smarty version 4.1.0, created on 2022-04-25 07:53:30
   from 'C:\xampp\htdocs\crm_web\view\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_624ce56b51c3b6_01481604',
+  'unifunc' => 'content_6266375acf4a93_93832086',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ff4627e0d70c61be14f848bfb02fc21cd2979f78' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\header.tpl',
-      1 => 1649206481,
+      1 => 1650865997,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_624ce56b51c3b6_01481604 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6266375acf4a93_93832086 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,10 +42,8 @@ function content_624ce56b51c3b6_01481604 (Smarty_Internal_Template $_smarty_tpl)
          </div>
          <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Portfolio</a></li>
             <?php if ($_smarty_tpl->tpl_vars['isLoggedIn']->value) {?>
+               <li><a href="index.php?action=show_employees">Employees</a></li>
                <li><a href="index.php?action=show_contacts">Contacts</a></li>
             <?php }?>
             <?php if ($_smarty_tpl->tpl_vars['isLoggedIn']->value && $_smarty_tpl->tpl_vars['role']->value == 1) {?>

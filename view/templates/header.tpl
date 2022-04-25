@@ -17,10 +17,8 @@
          </div>
          <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Portfolio</a></li>
             {if $isLoggedIn}
+               <li><a href="index.php?action=show_employees">Employees</a></li>
                <li><a href="index.php?action=show_contacts">Contacts</a></li>
             {/if}
             {if $isLoggedIn and $role eq 1}
