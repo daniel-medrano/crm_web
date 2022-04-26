@@ -4,8 +4,9 @@
 
     require_once "model/UsersModel.php";
     require_once "model/ContactsModel.php";
-    require_once "libs/smarty-4.1.0/Config.php";
     require_once "model/EmployeesModel.php";
+    require_once "model/ProductsModel.php";
+    require_once "libs/smarty-4.1.0/Config.php";
 
     class Control {
         private $configSmarty;
@@ -18,6 +19,7 @@
             $this->usersModel = new UsersModel();
             $this->contactsModel = new ContactsModel();
             $this->employeesModel = new EmployeesModel();
+            $this->productsModel = new ProductsModel();
 
         }
         // Para debuguear.
@@ -152,6 +154,29 @@
                 case "show_positions":
                     $this->showPositions();
                     break;
+                case "add_inout":
+                    $this->addInOut();
+                    break;
+                case "edit_inout":
+                    $this->editInOut();
+                    break;
+                case "del_inout":
+                    $this->deleteInOut();
+                    break;
+                case "show_add_inout":
+                    $this->showAddInOut();
+                    break;
+                case "show_edit_inouts":
+                    $this->showEditInOut();
+                    break;
+                case "show_del_inouts":
+                    $this->showDelInOut();
+                    break;
+                case "show_inouts":
+                    $this->showInOuts();
+                    break;
+
+            
                 default:
                     if (isset($_SESSION["user_id"])) {
                         $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
@@ -349,13 +374,13 @@
         //------------------------------------------------------------------------
         // PRODUCTS - MÉTODOS PARA ADMINISTRAR LOS PRODUCTOS
         //------------------------------------------------------------------------
-           function addProduct(){
+           function addProduct() {
                 // Se obtienen los datos del POST.
             $name = $_POST["name"];
             $amount = $_POST["amount"];
             $supplier = $_POST["supplier"];
             $user_id = $_SESSION["user_id"];
-            $created = $this->contactsModel->create($name, $amount, $supplier, $user_id);
+            $created = $this->productsModel->create($name, $amount, $supplier, $user_id);
 
             if ($created) {
                 $this->showProducts();
@@ -363,28 +388,27 @@
                
            }
            
-           function editProduct(){
+           function editProduct() {
 
-            // Se obtienen los datos del POST.
-            $product_id = intval($_POST["product_id"]);
-            $name = $_POST["name"];
-            $amount = $_POST["amount"];
-            $supplier = $_POST["supplier"];
-            $user_id = $_SESSION["user_id"];
-            // Con ayuda del modelo se crea el producto.
-            $updated = $this->contactsModel->update($name, $amount, $supplier, $user_id);
+                // Se obtienen los datos del POST.
+                $product_id = intval($_POST["product_id"]);
+                $name = $_POST["name"];
+                $amount = $_POST["amount"];
+                $supplier = $_POST["supplier"];
+                $user_id = $_SESSION["user_id"];
+                // Con ayuda del modelo se crea el producto.
+                $updated = $this->productsModel->update($product_id, $name, $amount, $supplier, $user_id);
 
-            if ($updated) {
-                $this->showProducts();
-            }
-
+                if ($updated) {
+                    $this->showProducts();
+                }
            }
 
            function deleteProduct(){
-            $deleted = $this->contactsModel->delete($_GET["id"]);
-            if ($deleted) {
-                $this->showProducts();
-            }
+                $deleted = $this->productsModel->delete($_GET["id"]);
+                if ($deleted) {
+                    $this->showProducts();
+                }
                
            }
 
@@ -424,6 +448,48 @@
             }
         }
 
+        //------------------------------------------------------------------------
+        // STOCK - MÉTODOS PARA ADMINISTRAR LAS ENTRADAS/SALIDAS EN LAS EXISTENCIAS
+        //------------------------------------------------------------------------
+        function addInOut() {
+            $amount = $_POST["amount"];
+            $type = $_POST["type"];
+            $description = $_POST["description"];
+            $date = $_POST["date"];
+            $product_id = $_POST["product_id"];
+            $user_id = $_SESSION["user_id"];
+            $created = $this->productsModel->createInOut($amount, $type, $description, $date, $product_id, $user_id );
+
+            if ($created) {
+                $this->showAddInOut();
+            }
+        }
+        // Actualiza el registro de LAS ENTRADAS/SALIDAS 
+        function editInOut() {
+                // Se obtienen los datos del POST.
+            $inout_id = intval($_POST["inout_id"]);
+            $amount = $_POST["amount"];
+            $type = $_POST["type"];
+            $description = $_POST["description"];
+            $date = $_POST["date"];
+            $product_id = $_POST["product_id"];
+            $user_id = $_SESSION["user_id"];
+
+            // Con ayuda del modelo se crea LAS ENTRADAS/SALIDAS 
+            $updated = $this->productsModel->updateInOut($amount, $type, $description, $date, $product_id, $user_id);
+
+            if ($updated) {
+                $this->showEditInOut();
+            }
+        }
+
+        function deleteInOut() {
+            // Elimina el registro de LAS ENTRADAS/SALIDAS 
+            $deleted = $this->productsModel->deleteInOut($_GET["id"]);
+            if ($deleted) {
+                $this->showDelInOut();
+            }
+        }
 
 
         //------------------------------------------------------------------------
@@ -583,24 +649,76 @@
       
         // Muestra la pagina para crear un PRODUCTO
         function showAddProduct() {
-
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setDisplay("products/add.tpl");
         }
         
          // Muestra la pagina para editar un producto.
-         function showEditProduct() {
-            
+        function showEditProduct() {
+            $product = $this->productsModel->getProduct(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("product", $product);
+            $this->configSmarty->setDisplay("products/edit.tpl");
         }
         
         // Muestra la pagina para eliminar un producto.
         function showDelProduct() {
-            
+            $product_id = intval($_GET["id"]);
+            $product = $this->productsModel->getProduct($product_id, $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("product", $product);
+            $this->configSmarty->setDisplay("products/delete.tpl");
         }
 
          // Muestra la pagina con la tabla que contiene todos los productos.
-         function showProducts() {
-            
+         function showProducts() { 
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("products", $this->productsModel->getProducts($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("products/view.tpl");
         }
 
+        //------------------------------------------------------------------------
+        // STOCK VIEW
+        //------------------------------------------------------------------------
 
-    }
+        // Muestra la pagina para aumentar o disminuir un PRODUCTO
+        function showAddInOut() {
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("products", $this->productsModel->getProducts($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("inouts/add.tpl");
+        }
+
+         // Muestra la pagina para editar un producto.
+         function showEditInOut() {
+            $inOut = $this->productsModel->getInOut(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("inOut", $inOut);
+            $this->configSmarty->setDisplay("inouts/edit.tpl");
+        }
+
+         // Muestra la pagina para eliminar un producto.
+         function showDelInOut() {
+            $product_id = intval($_GET["id"]);
+            $inOut = $this->productsModel->getStock($product_id, $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("inOut", $inOut);
+            $this->configSmarty->setDisplay("inouts/delete.tpl");
+
+         }
+
+        function showInOuts() { 
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("inOuts", $this->productsModel->getInOuts($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("inouts/view.tpl");
+        }
+}
+
 ?>

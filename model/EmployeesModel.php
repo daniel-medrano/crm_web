@@ -31,7 +31,7 @@
         }
         // Devuelve un array con un empleado en especifico con su ID.
         public function getEmployee($employee_id, $user_id) {
-            $sql = "SELECT * FROM employees INNER JOIN positions ON employees.position_id=positions.position_id WHERE employee_id=$employee_id AND user_id=$user_id;";
+            $sql = "SELECT * FROM employees INNER JOIN positions ON employees.position_id=positions.position_id WHERE employee_id=$employee_id AND employees.user_id=$user_id;";
             $result = $this->connect()->query($sql);
             
             $employee = array();
@@ -167,6 +167,7 @@
             $sql = "DELETE FROM vacations WHERE vacation_id=$vacation_id;";
             return $this->connect()->query($sql);
         }
+       
 
     }
 ?>

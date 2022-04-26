@@ -16,8 +16,8 @@
             <h1>CRM</h1>
          </div>
          <ul>
-            <li><a href="#">Home</a></li>
             {if $isLoggedIn}
+               <li><a href="index.php?action=show_products">Products</a></li>
                <li><a href="index.php?action=show_employees">Employees</a></li>
                <li><a href="index.php?action=show_contacts">Contacts</a></li>
             {/if}
@@ -32,7 +32,7 @@
                <li><a href="index.php?action=open_login">Login</a></li>
                <li><a href="index.php?action=open_signup">Sign Up</a></li>
             {else}
-               <li><a href="#">Profile</a></li>
+               <!-- <li><a href="#">Profile</a></li> -->
                <li><a href="logout.php">Log Out</a></li>
             {/if}
          </ul>
