@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-26 08:39:54
+/* Smarty version 4.1.0, created on 2022-04-27 09:24:03
   from 'C:\xampp\htdocs\crm_web\view\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_626793ba902d81_84190529',
+  'unifunc' => 'content_6268ef93266dd0_08351697',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ff4627e0d70c61be14f848bfb02fc21cd2979f78' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\header.tpl',
-      1 => 1650950480,
+      1 => 1651044240,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_626793ba902d81_84190529 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6268ef93266dd0_08351697 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +42,7 @@ function content_626793ba902d81_84190529 (Smarty_Internal_Template $_smarty_tpl)
          </div>
          <ul>
             <?php if ($_smarty_tpl->tpl_vars['isLoggedIn']->value) {?>
+               <li><a href="index.php?action=show_reports">Reports</a></li>
                <li><a href="index.php?action=show_products">Products</a></li>
                <li><a href="index.php?action=show_employees">Employees</a></li>
                <li><a href="index.php?action=show_contacts">Contacts</a></li>

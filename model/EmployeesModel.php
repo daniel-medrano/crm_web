@@ -63,6 +63,14 @@
         // POSITIONS
         //------------------------------------------------------------------------
 
+        // Inserta el registro de un nuevo puesto en la base de datos.
+        public function createPosition($position, $salary, $user_id) {
+            // Se prepara y ejecuta el query.
+            $sql = "INSERT INTO positions (position, salary, user_id) VALUES ('$position', '$salary', '$user_id')";
+            return $this->connect()->query($sql);
+
+        } 
+
         public function getPositions($user_id) {
             $sql = "SELECT * FROM positions WHERE user_id=$user_id;";
             $result = $this->connect()->query($sql);
@@ -74,21 +82,21 @@
                 $new["position_id"] = $row["position_id"];
                 $new["position"] = $row["position"];
                 $new["salary"] = $row["salary"];
+                $sql = "SELECT COUNT(*) AS times_linked FROM employees WHERE position_id=".$row["position_id"]." AND user_id=$user_id;";
+                $times_linked = mysqli_fetch_assoc($this->connect()->query($sql))["times_linked"];
+                $new["times_linked"] = $times_linked;
                 array_push($results, $new);
             }
             return $results;
         }
 
-        // Inserta el registro de un nuevo puesto en la base de datos.
-        public function createPosition($position, $salary, $user_id) {
-            // Se prepara y ejecuta el query.
-            $sql = "INSERT INTO positions (position, salary, user_id) VALUES ('$position', '$salary', '$user_id')";
-            return $this->connect()->query($sql);
-
-        } 
+     
         public function getPosition($position_id, $user_id) {
             $sql = "SELECT * FROM positions WHERE position_id=$position_id AND user_id=$user_id;";
             $result = $this->connect()->query($sql);
+
+            $sql = "SELECT COUNT(*) AS times_linked FROM employees WHERE position_id=$position_id AND user_id=$user_id;";
+            $times_linked = mysqli_fetch_assoc($this->connect()->query($sql))["times_linked"];
             
             $position = array();
 
@@ -96,6 +104,7 @@
                 $position["position_id"] = $row["position_id"];
                 $position["position"] = $row["position"];
                 $position["salary"] = $row["salary"];
+                $position["times_linked"] = $times_linked;
 
             }
             return $position;
@@ -121,7 +130,6 @@
             $sql = "INSERT INTO vacations (days, vacation_date, employee_id, user_id) VALUES ('$days', '$vacation_date', '$employee_id', $user_id);";
 
             return $this->connect()->query($sql);
-
         }
         // Devuelve un array con todas las vacaciones.
         public function getVacations($user_id) {
@@ -142,7 +150,7 @@
         }
         // Devuelve un array con una vacación en especifico con su ID.
         public function getVacation($vacation_id, $user_id) {
-            $sql = "SELECT * FROM vacations WHERE vacation_id=$vacation_id AND user_id=$user_id;";
+            $sql = "SELECT * FROM vacations INNER JOIN employees ON vacations.employee_id=employees.employee_id WHERE vacation_id=$vacation_id AND vacations.user_id=$user_id;";
             $result = $this->connect()->query($sql);
             
             $vacation = array();
@@ -152,14 +160,15 @@
                 $vacation["days"] = $row["days"];
                 $vacation["vacation_date"] = $row["vacation_date"];
                 $vacation["employee_id"] = $row["employee_id"];
-
+                $vacation["name"] = $row["name"];
+                $vacation["last_name"] = $row["last_name"];
             }
             return $vacation;
         }
         // Actualiza el registro de una vacación.
-        function updateVacation($vacation_id, $days, $vacation_date) {
+        function updateVacation($vacation_id, $days, $vacation_date, $employee_id) {
             // Se prepara y ejecuta el query.
-            $sql = "UPDATE vacations SET days='$days', vacation_date='$vacation_date' WHERE vacation_id=$vacation_id;";
+            $sql = "UPDATE vacations SET days='$days', vacation_date='$vacation_date', employee_id='$employee_id' WHERE vacation_id=$vacation_id;";
             return $this->connect()->query($sql);
         }
         // Elimina el registro de una vacación con su ID.

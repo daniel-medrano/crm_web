@@ -6,8 +6,8 @@
     require_once "model/ContactsModel.php";
     require_once "model/EmployeesModel.php";
     require_once "model/ProductsModel.php";
+    require_once "model/PaymentsModel.php";
     require_once "libs/smarty-4.1.0/Config.php";
-
     class Control {
         private $configSmarty;
         private $action;
@@ -20,6 +20,7 @@
             $this->contactsModel = new ContactsModel();
             $this->employeesModel = new EmployeesModel();
             $this->productsModel = new ProductsModel();
+            $this->paymentsModel = new PaymentsModel();
 
         }
         // Para debuguear.
@@ -154,6 +155,27 @@
                 case "show_positions":
                     $this->showPositions();
                     break;
+                case "add_vacation":
+                    $this->addVacation();
+                    break;
+                case "edit_vacation":
+                    $this->editVacation();
+                    break;
+                case "del_vacation":
+                    $this->deleteVacation();
+                    break;
+                case "show_add_vacation":
+                    $this->showAddVacation();
+                    break;
+                case "show_edit_vacation":
+                    $this->showEditVacation();
+                    break;
+                case "show_del_vacation":
+                    $this->showDelVacation();
+                    break;
+                case "show_vacations":
+                    $this->showVacations();
+                    break;                
                 case "add_inout":
                     $this->addInOut();
                     break;
@@ -166,17 +188,33 @@
                 case "show_add_inout":
                     $this->showAddInOut();
                     break;
-                case "show_edit_inouts":
+                case "show_edit_inout":
                     $this->showEditInOut();
                     break;
-                case "show_del_inouts":
+                case "show_del_inout":
                     $this->showDelInOut();
                     break;
                 case "show_inouts":
                     $this->showInOuts();
                     break;
-
-            
+                case "show_reports":
+                    $this->showReports();
+                    break;
+                case "show_payments":
+                    $this->showPayments();                   
+                    break;
+                case "show_cal_payment":
+                    $this->showCalPayment();
+                    break;
+                case "add_payment":
+                    $this->addPayment();
+                    break;
+                case "show_del_payment":
+                    $this->showDelPayment();
+                    break;
+                case "del_payment":
+                    $this->delPayment();
+                    break;
                 default:
                     if (isset($_SESSION["user_id"])) {
                         $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
@@ -374,47 +412,49 @@
         //------------------------------------------------------------------------
         // PRODUCTS - MÉTODOS PARA ADMINISTRAR LOS PRODUCTOS
         //------------------------------------------------------------------------
+
            function addProduct() {
                 // Se obtienen los datos del POST.
-            $name = $_POST["name"];
-            $amount = $_POST["amount"];
-            $supplier = $_POST["supplier"];
-            $user_id = $_SESSION["user_id"];
-            $created = $this->productsModel->create($name, $amount, $supplier, $user_id);
+                $name = $_POST["name"];
+                $amount = $_POST["amount"];
+                $supplier = $_POST["supplier"];
+                $warehouse = $_POST["warehouse"];
+                $price = $_POST["price"];
+                $user_id = $_SESSION["user_id"];
+                $created = $this->productsModel->create($name, $amount, $supplier, $warehouse, $price, $user_id);
 
-            if ($created) {
-                $this->showProducts();
+                if ($created) {
+                    $this->showProducts();
+                }
             }
-               
-           }
            
            function editProduct() {
 
                 // Se obtienen los datos del POST.
                 $product_id = intval($_POST["product_id"]);
                 $name = $_POST["name"];
-                $amount = $_POST["amount"];
                 $supplier = $_POST["supplier"];
+                $warehouse = $_POST["warehouse"];
+                $price = $_POST["price"];
                 $user_id = $_SESSION["user_id"];
                 // Con ayuda del modelo se crea el producto.
-                $updated = $this->productsModel->update($product_id, $name, $amount, $supplier, $user_id);
+                $updated = $this->productsModel->update($product_id, $name, $supplier, $warehouse, $price, $user_id);
 
                 if ($updated) {
                     $this->showProducts();
                 }
-           }
+            }
 
            function deleteProduct(){
                 $deleted = $this->productsModel->delete($_GET["id"]);
                 if ($deleted) {
                     $this->showProducts();
                 }
-               
-           }
+            }
 
            
         //------------------------------------------------------------------------
-        // USERS - MÉTODOS PARA ADMINISTRAR LOs puestos
+        // POSITIONS - MÉTODOS PARA ADMINISTRAR LOS PUESTOS
         //------------------------------------------------------------------------
         function addPosition(){
             $position = $_POST["position"];
@@ -445,11 +485,49 @@
             $deleted = $this->employeesModel->deletePosition($_GET["id"]);
             if ($deleted) {
                 $this->showPositions();
-            }
+            } 
         }
 
         //------------------------------------------------------------------------
-        // STOCK - MÉTODOS PARA ADMINISTRAR LAS ENTRADAS/SALIDAS EN LAS EXISTENCIAS
+        // VACATIONS - MÉTODOS PARA ADMINISTRAR LAS VACACIONES
+        //------------------------------------------------------------------------
+        function addVacation(){
+            $days = $_POST["days"];
+            $vacation_date = $_POST["date"];
+            $employee_id = $_POST["employee_id"];
+            $user_id = $_SESSION["user_id"];
+            $created = $this->employeesModel->createVacation($days, $vacation_date, $employee_id, $user_id );
+
+            if ($created) {
+                $this->showVacations();
+            }
+        }
+        // Actualiza el registro de un empleado.
+        function editVacation(){
+            // Se obtienen los datos del POST.
+            $vacation_id = intval($_POST["vacation_id"]);
+            $days = $_POST["days"];
+            $vacation_date = $_POST["date"];
+            $employee_id = $_POST["employee_id"];
+            // Con ayuda del modelo se crea el puesto.
+            $updated = $this->employeesModel->updateVacation($vacation_id, $days, $vacation_date, $employee_id);
+
+            if ($updated) {
+                $this->showVacations();
+            }
+        }
+
+        function deleteVacation(){
+            // Elimina el registro de un empleado.
+            $deleted = $this->employeesModel->deleteVacation($_GET["id"]);
+            if ($deleted) {
+                $this->showVacations();
+            }
+        }
+
+
+        //------------------------------------------------------------------------
+        // IN/OUTS - MÉTODOS PARA ADMINISTRAR LAS ENTRADAS/SALIDAS EN LAS EXISTENCIAS
         //------------------------------------------------------------------------
         function addInOut() {
             $amount = $_POST["amount"];
@@ -458,10 +536,10 @@
             $date = $_POST["date"];
             $product_id = $_POST["product_id"];
             $user_id = $_SESSION["user_id"];
-            $created = $this->productsModel->createInOut($amount, $type, $description, $date, $product_id, $user_id );
+            $created = $this->productsModel->createInOut($amount, $type, $description, $date, $product_id, $user_id);
 
             if ($created) {
-                $this->showAddInOut();
+                $this->showInOuts();
             }
         }
         // Actualiza el registro de LAS ENTRADAS/SALIDAS 
@@ -469,17 +547,14 @@
                 // Se obtienen los datos del POST.
             $inout_id = intval($_POST["inout_id"]);
             $amount = $_POST["amount"];
-            $type = $_POST["type"];
             $description = $_POST["description"];
-            $date = $_POST["date"];
-            $product_id = $_POST["product_id"];
             $user_id = $_SESSION["user_id"];
 
             // Con ayuda del modelo se crea LAS ENTRADAS/SALIDAS 
-            $updated = $this->productsModel->updateInOut($amount, $type, $description, $date, $product_id, $user_id);
+            $updated = $this->productsModel->updateInOut($inout_id, $amount, $description, $user_id);
 
             if ($updated) {
-                $this->showEditInOut();
+                $this->showInOuts();
             }
         }
 
@@ -487,7 +562,28 @@
             // Elimina el registro de LAS ENTRADAS/SALIDAS 
             $deleted = $this->productsModel->deleteInOut($_GET["id"]);
             if ($deleted) {
-                $this->showDelInOut();
+                $this->showInOuts();
+            }
+        }
+
+        //------------------------------------------------------------------------
+        // PAYMENTS - MÉTODOS PARA ADMINISTRAR LOS PAGOS DE SALARIOS
+        //------------------------------------------------------------------------
+       function addPayment() {
+           $date = $_POST["date"];
+           $amount = $_POST["amount"];
+           $user_id = $_SESSION["user_id"];
+
+           $created = $this->paymentsModel->create($date, $amount, $user_id);
+
+        if ($created) {
+            $this->showPayments();
+        }
+        }
+        function delPayment() {
+            $deleted = $this->paymentsModel->delete($_GET["id"]);
+            if ($deleted) {
+                $this->showPayments();
             }
         }
 
@@ -642,7 +738,44 @@
             $this->configSmarty->setAssign("positions", $this->employeesModel->getPositions($_SESSION["user_id"]));
             $this->configSmarty->setDisplay("positions/view.tpl");
         }
+
+        //------------------------------------------------------------------------
+        // VACATIONS VIEW
+        //------------------------------------------------------------------------
        
+
+        function showAddVacation() {
+            $this->configSmarty->setAssign("vacations", $this->employeesModel->getPositions($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("employees", $this->employeesModel->getEmployees($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setDisplay("vacations/add.tpl");
+        }
+        // Muestra la pagina para editar un puesto.
+        function showEditVacation() {
+            $vacation = $this->employeesModel->getVacation(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("vacation", $vacation);
+            $this->configSmarty->setAssign("employees", $this->employeesModel->getEmployees($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("vacations/edit.tpl");
+        }
+        // Muestra la pagina para eliminar un puesto.
+        function showDelVacation() {
+            $vacation = $this->employeesModel->getVacation(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("vacation", $vacation);
+            $this->configSmarty->setDisplay("vacations/delete.tpl");
+        }
+        // Muestra la pagina con la tabla que contiene todos las puesto.
+        function showVacations() {
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("vacations", $this->employeesModel->getVacations($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("vacations/view.tpl");
+        }
+
         //------------------------------------------------------------------------
         // PRODUCTS VIEW
         //------------------------------------------------------------------------
@@ -682,7 +815,7 @@
         }
 
         //------------------------------------------------------------------------
-        // STOCK VIEW
+        // IN/OUTS VIEW
         //------------------------------------------------------------------------
 
         // Muestra la pagina para aumentar o disminuir un PRODUCTO
@@ -704,8 +837,8 @@
 
          // Muestra la pagina para eliminar un producto.
          function showDelInOut() {
-            $product_id = intval($_GET["id"]);
-            $inOut = $this->productsModel->getStock($product_id, $_SESSION["user_id"]);
+            $inout_id = intval($_GET["id"]);
+            $inOut = $this->productsModel->getInOut($inout_id, $_SESSION["user_id"]);
             $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("inOut", $inOut);
@@ -719,6 +852,49 @@
             $this->configSmarty->setAssign("inOuts", $this->productsModel->getInOuts($_SESSION["user_id"]));
             $this->configSmarty->setDisplay("inouts/view.tpl");
         }
-}
+
+         //------------------------------------------------------------------------
+        // REPORTS VIEW
+        //------------------------------------------------------------------------
+
+
+        // Muestra la pagina con la tabla que contiene todos los reportes.
+        function showReports() {
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("contacts", $this->contactsModel->getContacts($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("payments", $this->paymentsModel->getPaymentsPerMonth($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("inOuts", $this->productsModel->getInOuts($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("users", $this->usersModel->getUsers());
+            $this->configSmarty->setDisplay("reports.tpl");
+        }
+            
+        //------------------------------------------------------------------------
+        // PAYMENTS VIEW
+        //------------------------------------------------------------------------
+
+        // Muestra la tabla pcon todos los pagos.
+        function showPayments() {
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("payments", $this->paymentsModel->getPayments($_SESSION["user_id"]));
+            $this->configSmarty->setDisplay("payments/view.tpl");
+        }
+
+        function showCalPayment() {
+            $salary_payment = $this->paymentsModel->calculatePayment($_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("salary_payment", $salary_payment);
+            $this->configSmarty->setDisplay("payments/add.tpl");
+        }
+        function showDelPayment() {
+            $payment = $this->paymentsModel->getPayment(intval($_GET["id"]), $_SESSION["user_id"]);
+            $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
+            $this->configSmarty->setAssign("isLoggedIn", true);
+            $this->configSmarty->setAssign("payment", $payment);
+            $this->configSmarty->setDisplay("payments/delete.tpl");
+        }
+    }
 
 ?>

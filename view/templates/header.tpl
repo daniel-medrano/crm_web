@@ -17,6 +17,7 @@
          </div>
          <ul>
             {if $isLoggedIn}
+               <li><a href="index.php?action=show_reports">Reports</a></li>
                <li><a href="index.php?action=show_products">Products</a></li>
                <li><a href="index.php?action=show_employees">Employees</a></li>
                <li><a href="index.php?action=show_contacts">Contacts</a></li>

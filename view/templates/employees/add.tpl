@@ -8,7 +8,7 @@
             <input class="text-box" type="text" name="email" placeholder="Email" required>
             
             <select class="select" name="position" required>
-                <option disabled selected>Select position</option>
+                <option value="" disabled selected>Select position</option>
                 {foreach $positions as $position}
                     <option value="{$position['position_id']}">{$position["position"]}</option>
                 {/foreach}

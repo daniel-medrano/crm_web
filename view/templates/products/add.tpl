@@ -6,6 +6,8 @@
             <input class="text-box" type="text" name="name" placeholder="Name" required>
             <input class="text-box" type="text" name="amount" placeholder="Amount" required>
             <input class="text-box" type="text" name="supplier" placeholder="Supplier" required>
+            <input class="text-box" type="text" name="warehouse" placeholder="Warehouse" required>
+            <input class="text-box" type="text" name="price" placeholder="Price" required>
             <div class="buttons">
                 <input class="button" type="submit" value="Add">
                 <a class="button" href="index.php?action=show_products">Cancel</a>
