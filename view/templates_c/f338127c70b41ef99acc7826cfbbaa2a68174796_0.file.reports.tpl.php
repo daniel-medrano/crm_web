@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-27 09:40:03
+/* Smarty version 4.1.0, created on 2022-04-28 02:04:28
   from 'C:\xampp\htdocs\crm_web\view\templates\reports.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_6268f35344d9d3_76771777',
+  'unifunc' => 'content_6269da0cb16df0_23285402',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f338127c70b41ef99acc7826cfbbaa2a68174796' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\reports.tpl',
-      1 => 1651045195,
+      1 => 1651104266,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:header.tpl' => 1,
   ),
 ),false)) {
-function content_6268f35344d9d3_76771777 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6269da0cb16df0_23285402 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <div class="container users-view">
@@ -133,43 +133,45 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             </tbody>
         </table>
     </div>
-    <h2 class="title">User's List</h2>
-    <div class="table-wrapper">
-        <table> 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
+    <?php if ($_smarty_tpl->tpl_vars['isLoggedIn']->value && $_smarty_tpl->tpl_vars['role']->value == 1) {?>
+        <h2 class="title">User's List</h2>
+        <div class="table-wrapper">
+            <table> 
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['users']->value, 'user');
 $_smarty_tpl->tpl_vars['user']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['user']->value) {
 $_smarty_tpl->tpl_vars['user']->do_else = false;
 ?>
-                    <tr>
-                        <td><?php echo $_smarty_tpl->tpl_vars['user']->value["user_id"];?>
+                        <tr>
+                            <td><?php echo $_smarty_tpl->tpl_vars['user']->value["user_id"];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['user']->value["name"];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['user']->value["name"];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['user']->value["last_name"];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['user']->value["last_name"];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['user']->value["username"];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['user']->value["username"];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['user']->value["role"];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['user']->value["role"];?>
 </td>
-                    </tr>
-                <?php
+                        </tr>
+                    <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
+    <?php }?>
     <br><br><br>
 </div>
 </body>

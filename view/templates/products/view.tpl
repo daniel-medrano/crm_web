@@ -4,6 +4,12 @@
         <div class="buttons">
             <a class="button" href="index.php?action=show_inouts">In/Out</a>
             <a class="button" href="index.php?action=show_add_product">Add</a>
+            <select class="select filter"" id="warehousesDropdown">
+                <option value="All">All</option>
+                {foreach $warehouses as $warehouse}
+                    <option value="{$warehouse['warehouse']}">{$warehouse["warehouse"]}</option>
+                {/foreach}
+            </select>
         </div>
         <div class="table-wrapper">
             <table>
@@ -39,5 +45,6 @@
             </table>
         </div>
     </div>
+    <script src="js/filter.js"></script>
 </body>
 </html>

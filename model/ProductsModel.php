@@ -56,8 +56,26 @@
         }
         // Elimina el registro de un producto con su ID.
         function delete($product_id) {
+            $sql = "DELETE FROM inouts WHERE product_id=$product_id;";
+            $this->connect()->query($sql);
             $sql = "DELETE FROM products WHERE product_id=$product_id;";
             return $this->connect()->query($sql);
+        }
+
+        // Devuelve un array con todos las bodegas.
+        public function getWarehouses($user_id) {
+            $sql = "SELECT DISTINCT warehouse FROM products WHERE user_id=$user_id;";
+            $result = $this->connect()->query($sql);
+            
+            $results = array();
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $new = array();
+                $new["warehouse"] = $row["warehouse"];
+
+                array_push($results, $new);
+            }
+            return $results;
         }
 
 

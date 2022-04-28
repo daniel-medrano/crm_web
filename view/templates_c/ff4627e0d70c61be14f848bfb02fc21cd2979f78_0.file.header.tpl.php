@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-04-27 09:24:03
+/* Smarty version 4.1.0, created on 2022-04-28 01:57:05
   from 'C:\xampp\htdocs\crm_web\view\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_6268ef93266dd0_08351697',
+  'unifunc' => 'content_6269d8516c6758_39777155',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ff4627e0d70c61be14f848bfb02fc21cd2979f78' => 
     array (
       0 => 'C:\\xampp\\htdocs\\crm_web\\view\\templates\\header.tpl',
-      1 => 1651044240,
+      1 => 1651103823,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6268ef93266dd0_08351697 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6269d8516c6758_39777155 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +29,7 @@ function content_6268ef93266dd0_08351697 (Smarty_Internal_Template $_smarty_tpl)
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
    <link rel="shortcut icon" type="image/x-icon" href="./assets/favicon.ico">
-   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <link rel="stylesheet" type="text/css" href="css/styles.css">
    <?php echo '<script'; ?>
  src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"><?php echo '</script'; ?>
 >

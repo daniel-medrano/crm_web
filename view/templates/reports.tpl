@@ -75,31 +75,33 @@
             </tbody>
         </table>
     </div>
-    <h2 class="title">User's List</h2>
-    <div class="table-wrapper">
-        <table> 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                {foreach $users as $user}
+    {if $isLoggedIn and $role eq 1}
+        <h2 class="title">User's List</h2>
+        <div class="table-wrapper">
+            <table> 
+                <thead>
                     <tr>
-                        <td>{$user["user_id"]}</td>
-                        <td>{$user["name"]}</td>
-                        <td>{$user["last_name"]}</td>
-                        <td>{$user["username"]}</td>
-                        <td>{$user["role"]}</td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Role</th>
                     </tr>
-                {/foreach}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {foreach $users as $user}
+                        <tr>
+                            <td>{$user["user_id"]}</td>
+                            <td>{$user["name"]}</td>
+                            <td>{$user["last_name"]}</td>
+                            <td>{$user["username"]}</td>
+                            <td>{$user["role"]}</td>
+                        </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+    {/if}
     <br><br><br>
 </div>
 </body>

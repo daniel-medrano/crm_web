@@ -811,6 +811,7 @@
             $this->configSmarty->setAssign("role", $_SESSION["role_id"]);
             $this->configSmarty->setAssign("isLoggedIn", true);
             $this->configSmarty->setAssign("products", $this->productsModel->getProducts($_SESSION["user_id"]));
+            $this->configSmarty->setAssign("warehouses", $this->productsModel->getWarehouses($_SESSION["user_id"]));
             $this->configSmarty->setDisplay("products/view.tpl");
         }
 
